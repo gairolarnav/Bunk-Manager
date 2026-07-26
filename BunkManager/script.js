@@ -14,13 +14,15 @@ const progressFill = $("progressFill");
 const heroCaption = $("heroCaption");
 const cardBadge = $("cardBadge");
 const cardText = $("cardText");
-const ggwText = $("ggwText");
+const eggText = $("eggText");
 const memeArea = $("memeArea");
 const memeImage = $("memeImage");
 
 const TARGET = 75;
 const SAFE_AT = 78;
 const GGW_AT = 15;
+const NERD_MIN_PERCENT = 90;
+const NERD_MIN_SKIPPABLE = 8;
 
 const MODES = {
   attended: { label: "Classes Attended", placeholder: "Number of classes attended" },
@@ -29,8 +31,14 @@ const MODES = {
 
 const BADGES = { safe: "Safe Area", warn: "Borderline", crit: "Critical" };
 
+const EASTER_EGGS = {
+  ggw: { src: "./image/dawg.webp", text: "GGW" },
+  nerd: { src: "./image/nerd.webp", text: "Classroom Furniture" }
+};
+
 let mode = "attended";
 let hasResult = false;
+let currentEgg = null;
 
 const classWord = (count) => (count === 1 ? "class" : "classes");
 
@@ -70,14 +78,20 @@ function markStale() {
   heroCaption.textContent = "Press Calculate to update";
 }
 
-function setMeme(visible) {
-  const appearing = visible && memeArea.hidden;
+// egg is null to hide, or one of EASTER_EGGS to show.
+function setMeme(egg) {
+  const changed = egg !== currentEgg;
+  currentEgg = egg;
 
-  ggwText.hidden = !visible;
-  memeArea.hidden = !visible;
-  if (!appearing) return;
+  eggText.hidden = !egg;
+  memeArea.hidden = !egg;
+  if (!egg) return;
 
-  // Forcing a reflow replays the fade-in each time the meme reappears.
+  eggText.textContent = egg.text;
+  if (!changed) return;
+
+  memeImage.src = egg.src;
+  // Forcing a reflow replays the fade-in whenever the egg newly appears or switches.
   memeImage.style.animation = "none";
   void memeImage.offsetWidth;
   memeImage.style.animation = "";
@@ -93,7 +107,7 @@ function reset(caption, error) {
   heroCaption.textContent = caption;
   cardBadge.textContent = BADGES.safe;
   cardText.textContent = "Your attendance summary will appear here.";
-  setMeme(false);
+  setMeme(null);
 
   errorMsg.textContent = error ?? "";
   errorMsg.hidden = !error;
@@ -150,7 +164,9 @@ function calculate() {
       skippable <= 0
         ? "You are on the edge! You cannot miss any more classes."
         : `You can safely miss <strong>${skippable}</strong> more ${classWord(skippable)} and stay above ${TARGET}%.`;
-    setMeme(false);
+
+    const isOverachiever = percentage > NERD_MIN_PERCENT && skippable > NERD_MIN_SKIPPABLE;
+    setMeme(isOverachiever ? EASTER_EGGS.nerd : null);
     return;
   }
 
@@ -158,7 +174,7 @@ function calculate() {
   const needed = Math.ceil(3 * total - 4 * attended);
 
   cardText.innerHTML = `You need to attend <strong>${needed}</strong> consecutive ${classWord(needed)} to reach ${TARGET}%.`;
-  setMeme(needed > GGW_AT);
+  setMeme(needed > GGW_AT ? EASTER_EGGS.ggw : null);
 }
 
 modeButtons.forEach((btn) => {
