@@ -1,65 +1,63 @@
-# Bunk Manager
+# Bunk Manager 🎒
 
-A mobile-first attendance calculator. Enter your total classes and how many you attended (or missed), and it tells you how many more you can safely skip — or how many you need to attend — to hold the 75% line.
+Ever sat in class doing mental math about whether you can skip tomorrow without your attendance going down the drain? Yeah, same. That's why this exists.
 
-No backend, no build step, no dependencies. Three files and an image.
+Punch in your total classes and how many you've attended (or missed, we don't judge), and Bunk Manager instantly tells you how many more you can safely skip — or how many you desperately need to attend — to stay above **75%**.
 
-## How it works
+No sign-ups, no ads, no backend doing who-knows-what with your data. Just open it and it works.
 
-The target is **75%**.
+## What it actually does
 
-| Mode | Attended is |
-| --- | --- |
-| Classes Attended | the number you type |
-| Classes Missed | `total − missed` |
+The magic number is **75%**. That's the line most colleges draw for "you're allowed in the exam hall."
 
-```
-percentage = attended / total × 100
+- Toggle between **Classes Attended** or **Classes Missed** — whichever you find easier to count.
+- Type in your numbers, hit **Calculate**.
+- It tells you straight up:
+  - ✅ **Above 75%?** "You can safely miss X more classes."
+  - ⚠️ **Right at the edge?** It'll let you know you're cutting it close.
+  - 🚨 **Below 75%?** "You need to attend X classes in a row to fix this."
 
-percentage ≥ 75  →  skippable = floor((4 × attended − 3 × total) / 3)
-percentage < 75  →  needed    = ceil(3 × total − 4 × attended)
-```
+The percentage, the progress bar, and the little result card all change color depending on how screwed (or not) you are:
 
-`skippable` is how many classes you can miss before dropping below 75%. `needed` is how many consecutive classes you must attend to climb back to it.
+- 🟢 **Green** — 78% and up, you're golden
+- 🟡 **Yellow** — 75–77.9%, borderline, tread carefully
+- 🔴 **Red** — below 75%, time to lock in
 
-The percentage, progress bar, and result card share one color state:
+Oh, and if your situation is *really* bad (need more than 15 classes to recover), you get a little surprise. Find out yourself. 👀
 
-| State | Range |
-| --- | --- |
-| Green — safe | ≥ 78% |
-| Yellow — borderline | 75% – 77.99% |
-| Red — critical | < 75% |
+## Try it
 
-Results update when you press **Calculate**. Editing an input afterwards dims the previous result until you recalculate, so the numbers on screen always match the numbers you submitted.
+**Live site:** [PLACEHOLDER — drop your Netlify link here once it's live](https://your-site-name.netlify.app)
 
-## Tech stack
-
-- **HTML** — semantic markup, ARIA live region for results, `inputmode="numeric"` for mobile keypads
-- **CSS** — dark theme built on custom properties, BEM naming, CSS transitions and a keyframe fade-in, `prefers-reduced-motion` respected
-- **JavaScript** — vanilla, no framework, no dependencies
-
-## Usage
-
-**Live site:** link
-
-Or run it locally — open `index.html` directly, or serve the folder:
+Or just run it locally like a real developer:
 
 ```bash
 python -m http.server 8000
 ```
 
-Then visit `http://localhost:8000`. In VS Code, Live Server works too.
+then open `http://localhost:8000`. Or honestly, just double-click `index.html`. Or use VS Code's Live Server. It's that simple — no build tools, no npm install, no waiting around.
 
-## Structure
+## Built with
+
+Nothing fancy. Just:
+- **HTML** — plain and semantic
+- **CSS** — dark mode by default, smooth animations, no framework
+- **JavaScript** — vanilla, zero dependencies, zero drama
+
+Three files, one image, and that's the whole app.
+
+## What's in the folder
 
 ```
-index.html      markup
-style.css       theme, layout, animations
-script.js       input handling and attendance math
-favicon.svg     icon (favicon.ico is a 32×32 raster of the same mark)
-image/          meme asset
+index.html      the page
+style.css       the vibes (dark theme, colors, animations)
+script.js       the brains (all the math + logic)
+favicon.svg     the little icon in your tab
+image/          shh, it's a surprise
 ```
 
-## Notes
+## Heads up
 
-Needing more than 15 classes to recover triggers a small easter egg below the result card.
+The math assumes a strict 75% target — if your institution uses a different cutoff, you'll want to tweak the `TARGET` value in `script.js`. Everything else adjusts on its own.
+
+Built for students, by someone who's also done the math on a bathroom break before a lecture. Use it wisely. Or don't — that's between you and your attendance sheet.
