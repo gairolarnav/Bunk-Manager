@@ -27,7 +27,7 @@ Oh, and if your situation is *really* bad (need more than 15 classes to recover)
 
 ## Try it
 
-**Live site:** [PLACEHOLDER — drop your Netlify link here once it's live](https://your-site-name.netlify.app)
+**Live site:** [Bunk Manager]([https://your-site-name.netlify.app](https://bunk-manager67.netlify.app/))
 
 Or just run it locally like a real developer:
 
