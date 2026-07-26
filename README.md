@@ -23,7 +23,7 @@ The percentage, the progress bar, and the little result card all change color de
 - 🟡 **Yellow** — 75–77.9%, borderline, tread carefully
 - 🔴 **Red** — below 75%, time to lock in
 
-Oh, and if your situation is *really* bad (need more than 15 classes to recover), you get a little surprise. Find out yourself. 👀
+Oh, and there are a couple of easter eggs hiding in there — one for when things are *really* bad (need more than 15 classes to recover), and one for when you're doing suspiciously well (90% or above and can still skip 5 or more classes). Find out yourself. 👀
 
 ## Try it
 
@@ -44,7 +44,7 @@ Nothing fancy. Just:
 - **CSS** — dark mode by default, smooth animations, no framework
 - **JavaScript** — vanilla, zero dependencies, zero drama
 
-Three files, one image, and that's the whole app.
+Three files, a couple of images, and that's the whole app.
 
 ## What's in the folder
 
@@ -53,7 +53,7 @@ index.html      the page
 style.css       the vibes (dark theme, colors, animations)
 script.js       the brains (all the math + logic)
 favicon.svg     the little icon in your tab
-image/          shh, it's a surprise
+image/          shh, they're surprises
 ```
 
 ## Heads up
