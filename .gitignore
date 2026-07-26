@@ -1,0 +1,12 @@
+# Local scratch / test pages
+_*.html
+
+# Editor + OS cruft
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencies (none today — guard against accidental commits)
+node_modules/
