@@ -1,0 +1,366 @@
+:root {
+  --bg: #0b0f19;
+  --surface: #131a2a;
+  --surface-2: #1b2436;
+  --border: #273148;
+  --text: #e8ecf6;
+  --text-dim: #97a3bd;
+  --accent: #3b82f6;
+  --accent-strong: #2563eb;
+  --safe: #22c55e;
+  --warn: #eab308;
+  --crit: #ef4444;
+  --state: #64748b;
+  --state-soft: rgba(100, 116, 139, 0.12);
+  --state-border: rgba(100, 116, 139, 0.35);
+}
+
+.app[data-state="safe"] {
+  --state: var(--safe);
+  --state-soft: rgba(34, 197, 94, 0.1);
+  --state-border: rgba(34, 197, 94, 0.4);
+}
+
+.app[data-state="warn"] {
+  --state: var(--warn);
+  --state-soft: rgba(234, 179, 8, 0.1);
+  --state-border: rgba(234, 179, 8, 0.4);
+}
+
+.app[data-state="crit"] {
+  --state: var(--crit);
+  --state-soft: rgba(239, 68, 68, 0.1);
+  --state-border: rgba(239, 68, 68, 0.4);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(80rem 40rem at 50% -10rem, #16203a 0%, transparent 60%),
+    var(--bg);
+  color: var(--text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 2.25rem 1.25rem calc(3rem + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Header */
+.header {
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(180deg, #ffffff 0%, #9db4e0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  margin: 0.4rem 0 0;
+  font-size: 0.875rem;
+  color: var(--text-dim);
+}
+
+/* Segmented toggle */
+.segmented {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.segmented__thumb {
+  position: absolute;
+  top: 0.3rem;
+  left: 0.3rem;
+  width: calc(50% - 0.425rem);
+  height: calc(100% - 0.6rem);
+  border-radius: 999px;
+  background: var(--accent-strong);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.segmented[data-mode="missed"] .segmented__thumb {
+  transform: translateX(calc(100% + 0.35rem));
+}
+
+.segmented__btn {
+  position: relative;
+  z-index: 1;
+  padding: 0.7rem 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.segmented__btn.is-active {
+  color: #fff;
+}
+
+.segmented__btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Inputs */
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.field__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.field__input {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.875rem;
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field__input::-webkit-outer-spin-button,
+.field__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.field__input::placeholder {
+  color: #5f6d8a;
+}
+
+.field__input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+.error {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--crit);
+}
+
+.submit {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 1rem;
+  border: 0;
+  border-radius: 0.875rem;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-strong) 100%);
+  color: #fff;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.submit:hover {
+  filter: brightness(1.08);
+}
+
+.submit:active {
+  transform: translateY(1px) scale(0.995);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28);
+}
+
+.submit:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+}
+
+.hero__value {
+  font-size: 3.75rem;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--state);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+}
+
+.hero__caption {
+  margin: 0.75rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+}
+
+.progress {
+  position: relative;
+  height: 0.75rem;
+  margin-top: 1rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress__fill {
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--state);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+}
+
+/* 75% threshold indicator */
+.progress__marker {
+  position: absolute;
+  top: 0;
+  left: 75%;
+  width: 2px;
+  height: 100%;
+  background: rgba(232, 236, 246, 0.45);
+}
+
+/* Card */
+.card {
+  padding: 1.25rem;
+  background: var(--state-soft);
+  border: 1px solid var(--state-border);
+  border-radius: 1.125rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.card__badge {
+  display: inline-block;
+  margin-bottom: 0.6rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--state-soft);
+  border: 1px solid var(--state-border);
+  color: var(--state);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.card__text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.card__text strong {
+  color: var(--state);
+  font-weight: 800;
+}
+
+.card__ggw {
+  margin: 0.75rem 0 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--state);
+}
+
+/* Meme */
+.meme {
+  display: flex;
+  justify-content: center;
+}
+
+.meme__image {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  animation: fade-in 0.5s ease both;
+}
+
+.app.is-stale .hero__value,
+.app.is-stale .progress,
+.app.is-stale .card,
+.app.is-stale .meme {
+  opacity: 0.45;
+  transition: opacity 0.25s ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
