@@ -22,7 +22,7 @@ const TARGET = 75;
 const SAFE_AT = 78;
 const GGW_AT = 15;
 const NERD_MIN_PERCENT = 90;
-const NERD_MIN_SKIPPABLE = 8;
+const NERD_MIN_SKIPPABLE = 5;
 
 const MODES = {
   attended: { label: "Classes Attended", placeholder: "Number of classes attended" },
@@ -165,7 +165,7 @@ function calculate() {
         ? "You are on the edge! You cannot miss any more classes."
         : `You can safely miss <strong>${skippable}</strong> more ${classWord(skippable)} and stay above ${TARGET}%.`;
 
-    const isOverachiever = percentage > NERD_MIN_PERCENT && skippable > NERD_MIN_SKIPPABLE;
+    const isOverachiever = percentage >= NERD_MIN_PERCENT && skippable >= NERD_MIN_SKIPPABLE;
     setMeme(isOverachiever ? EASTER_EGGS.nerd : null);
     return;
   }
