@@ -9,9 +9,8 @@ A lightweight web app to calculate how many classes you can skip—or desperatel
 - **Visual Thresholds:** Color-coded status updates (Green: safe, Yellow: borderline, Red: critical).
 - **Zero Backend:** Runs entirely in the browser with no tracking or setup required.
 
-## Live Demo & Local Run
+## Local Run
 
-- **Live:** [bunk-manager67.netlify.app](https://bunk-manager67.netlify.app/)
 - **Local:** Open `index.html` directly in any browser, or spin up a quick server:
 
 ```bash
